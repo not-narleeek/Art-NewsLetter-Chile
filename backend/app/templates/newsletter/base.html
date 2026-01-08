@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .event-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .event-img { max-width: 100%; height: auto; border-radius: 4px; }
+        .event-title { font-size: 1.2rem; font-weight: bold; color: #0070f3; margin-top: 10px; }
+        .event-meta { font-size: 0.9rem; color: #666; margin-bottom: 10px; }
+        .btn { display: inline-block; background: #0070f3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; }
+        .footer { text-align: center; font-size: 0.8rem; color: #999; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div className="container">
+        <div className="header">
+            <h1>{{ title }}</h1>
+            {% if preview_text %}
+            <p>{{ preview_text }}</p>
+            {% endif %}
+        </div>
+
+        {% for event in events %}
+        <div className="event-card">
+            {% if event.image_url %}
+            <!-- Assuming simple relative path or absolute URL if S3 -->
+            <img src="{{ event.image_url }}" alt="{{ event.title }}" className="event-img">
+            {% endif %}
+            <h2 className="event-title">{{ event.title }}</h2>
+            <div className="event-meta">
+                <span>{{ event.start_date.strftime('%d-%m-%Y %H:%M') }}</span> | 
+                <span>{{ event.region }}</span> | 
+                <span>{{ event.category }}</span>
+            </div>
+            <p>{{ event.description }}</p>
+            {% if event.external_url %}
+            <a href="{{ event.external_url }}" className="btn">Ver Más</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div className="footer">
+            <p>Enviado por Art Newsletter Chile</p>
+            <p><a href="#">Darse de baja</a></p>
+        </div>
+    </div>
+</body>
+</html>
