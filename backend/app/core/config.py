@@ -19,6 +19,9 @@ class Settings(BaseSettings):
     # Email
     SMTP_HOST: str = "mailpit"
     SMTP_PORT: int = 1025
+    SMTP_USER: str | None = None
+    SMTP_PASSWORD: str | None = None
+    SMTP_TLS: bool = False
     EMAILS_FROM_EMAIL: str = "info@artnewsletter.cl"
     EMAILS_FROM_NAME: str = "Art Newsletter Chile"
     

@@ -13,6 +13,7 @@ export default function EventsPage() {
         fetch('http://localhost:8000/api/v1/events/')
             .then(res => res.json())
             .then(data => {
+                console.log("Fetched Events Data:", data); // Debug log
                 setEvents(data);
                 setLoading(false);
             })
@@ -41,6 +42,7 @@ export default function EventsPage() {
                             <th>Fecha</th>
                             <th>Categoría</th>
                             <th>Estado</th>
+                            <th>ID</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -56,7 +58,12 @@ export default function EventsPage() {
                                     </span>
                                 </td>
                                 <td>
-                                    <button className="btn-sm">Editar</button>
+                                    <small style={{ fontSize: '10px', color: '#999' }}>{event.id || 'NO ID'}</small>
+                                </td>
+                                <td>
+                                    <Link href={`/admin/events/${event.id}`} className="btn-sm" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                                        Editar
+                                    </Link>
                                 </td>
                             </tr>
                         ))}

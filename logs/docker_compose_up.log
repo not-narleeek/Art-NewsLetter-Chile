@@ -1,0 +1,256 @@
+SQL: SELECT event.id AS event_id, event.title AS event_title, event.slug AS event_slug, event.description AS event_description, event.start_date AS event_start_date, event.end_date AS event_end_date, event.category AS event_category, event.region AS event_region, event.external_url AS event_external_url, event.image_url AS event_image_url, event.status AS event_status, event.created_at AS event_created_at, event.updated_at AS event_updated_at 
+backend-1   | FROM event ORDER BY event.start_date DESC 
+backend-1   |  LIMIT %(param_1)s OFFSET %(param_2)s]
+backend-1   | [parameters: {'param_1': 100, 'param_2': 0}]
+backend-1   | (Background on this error at: https://sqlalche.me/e/20/f405)
+backend-1   | INFO:     172.18.0.1:33564 - "GET /api/v1/events/ HTTP/1.1" 500 Internal Server Error
+backend-1   | ERROR:    Exception in ASGI application
+backend-1   | Traceback (most recent call last):
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+backend-1   |     self.dialect.do_execute(
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+backend-1   |     cursor.execute(statement, parameters)
+backend-1   | psycopg2.errors.UndefinedTable: relation "event" does not exist
+backend-1   | LINE 2: FROM event ORDER BY event.start_date DESC 
+backend-1   |              ^
+backend-1   | 
+backend-1   | 
+backend-1   | The above exception was the direct cause of the following exception:
+backend-1   | 
+backend-1   | Traceback (most recent call last):
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 412, in run_asgi
+backend-1   |     result = await app(  # type: ignore[func-returns-value]
+backend-1   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+backend-1   |     return await self.app(scope, receive, send)
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+backend-1   |     await super().__call__(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/applications.py", line 123, in __call__
+backend-1   |     await self.middleware_stack(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 186, in __call__
+backend-1   |     raise exc
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+backend-1   |     await self.app(scope, receive, _send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+backend-1   |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+backend-1   |     raise exc
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+backend-1   |     await app(scope, receive, sender)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+backend-1   |     await self.middleware_stack(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+backend-1   |     await route.handle(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+backend-1   |     await self.app(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+backend-1   |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+backend-1   |     raise exc
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+backend-1   |     await app(scope, receive, sender)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+backend-1   |     response = await func(request)
+backend-1   |                ^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 299, in app
+backend-1   |     raise e
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 294, in app
+backend-1   |     raw_response = await run_endpoint_function(
+backend-1   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+backend-1   |     return await run_in_threadpool(dependant.call, **values)
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+backend-1   |     return await anyio.to_thread.run_sync(func, *args)
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 63, in run_sync
+backend-1   |     return await get_async_backend().run_sync_in_worker_thread(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2502, in run_sync_in_worker_thread
+backend-1   |     return await future
+backend-1   |            ^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 986, in run
+backend-1   |     result = context.run(func, *args)
+backend-1   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/app/app/api/v1/endpoints/events.py", line 27, in read_events
+backend-1   |     events = event_service.get_events(db, skip=skip, limit=limit, status=status, category=category, region=region)
+backend-1   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/app/app/services/event_service.py", line 37, in get_events
+backend-1   |     return query.order_by(desc(Event.start_date)).offset(skip).limit(limit).all()
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+backend-1   |     return self._iter().all()  # type: ignore
+backend-1   |            ^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+backend-1   |     result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+backend-1   |                                                   ^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+backend-1   |     return self._execute_internal(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+backend-1   |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+backend-1   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+backend-1   |     result = conn.execute(
+backend-1   |              ^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+backend-1   |     return meth(
+backend-1   |            ^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+backend-1   |     return connection._execute_clauseelement(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+backend-1   |     ret = self._execute_context(
+backend-1   |           ^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+backend-1   |     return self._exec_single_context(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+backend-1   |     self._handle_dbapi_exception(
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+backend-1   |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+backend-1   |     self.dialect.do_execute(
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+backend-1   |     cursor.execute(statement, parameters)
+backend-1   | sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "event" does not exist
+backend-1   | LINE 2: FROM event ORDER BY event.start_date DESC 
+backend-1   |              ^
+backend-1   | 
+backend-1   | [SQL: SELECT event.id AS event_id, event.title AS event_title, event.slug AS event_slug, event.description AS event_description, event.start_date AS event_start_date, event.end_date AS event_end_date, event.category AS event_category, event.region AS event_region, event.external_url AS event_external_url, event.image_url AS event_image_url, event.status AS event_status, event.created_at AS event_created_at, event.updated_at AS event_updated_at 
+backend-1   | FROM event ORDER BY event.start_date DESC 
+backend-1   |  LIMIT %(param_1)s OFFSET %(param_2)s]
+backend-1   | [parameters: {'param_1': 100, 'param_2': 0}]
+backend-1   | (Background on this error at: https://sqlalche.me/e/20/f405)
+frontend-1  |  GET /admin/events 200 in 46ms (compile: 18ms, render: 29ms)
+db-1        | 2026-01-08 14:22:58.852 UTC [27] LOG:  checkpoint starting: time
+db-1        | 2026-01-08 14:22:58.969 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.104 s, sync=0.005 s, total=0.117 s; sync files=3, longest=0.003 s, average=0.002 s; distance=0 kB, estimate=0 kB
+frontend-1  |  GET /admin/events 200 in 38ms (compile: 17ms, render: 21ms)
+frontend-1  |  GET /admin/events/create 200 in 57ms (compile: 13ms, render: 43ms)
+backend-1   | INFO:     172.18.0.1:34874 - "GET /docs HTTP/1.1" 200 OK
+backend-1   | INFO:     172.18.0.1:34874 - "GET /api/v1/openapi.json HTTP/1.1" 200 OK
+db-1        | 2026-01-08 14:24:03.353 UTC [34] ERROR:  relation "newsletter" does not exist at character 369
+db-1        | 2026-01-08 14:24:03.353 UTC [34] STATEMENT:  SELECT newsletter.id AS newsletter_id, newsletter.subject AS newsletter_subject, newsletter.content_html AS newsletter_content_html, newsletter.status AS newsletter_status, newsletter.scheduled_at AS newsletter_scheduled_at, newsletter.sent_at AS newsletter_sent_at, newsletter.created_at AS newsletter_created_at, newsletter.updated_at AS newsletter_updated_at 
+db-1        | 	FROM newsletter ORDER BY newsletter.created_at DESC 
+db-1        | 	LIMIT 100 OFFSET 0
+backend-1   | INFO:     172.18.0.1:49708 - "GET /api/v1/newsletters/?skip=0&limit=100 HTTP/1.1" 500 Internal Server Error
+backend-1   | ERROR:    Exception in ASGI application
+backend-1   | Traceback (most recent call last):
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+backend-1   |     self.dialect.do_execute(
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+backend-1   |     cursor.execute(statement, parameters)
+backend-1   | psycopg2.errors.UndefinedTable: relation "newsletter" does not exist
+backend-1   | LINE 2: FROM newsletter ORDER BY newsletter.created_at DESC 
+backend-1   |              ^
+backend-1   | 
+backend-1   | 
+backend-1   | The above exception was the direct cause of the following exception:
+backend-1   | 
+backend-1   | Traceback (most recent call last):
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 412, in run_asgi
+backend-1   |     result = await app(  # type: ignore[func-returns-value]
+backend-1   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+backend-1   |     return await self.app(scope, receive, send)
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+backend-1   |     await super().__call__(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/applications.py", line 123, in __call__
+backend-1   |     await self.middleware_stack(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 186, in __call__
+backend-1   |     raise exc
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+backend-1   |     await self.app(scope, receive, _send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+backend-1   |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+backend-1   |     raise exc
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+backend-1   |     await app(scope, receive, sender)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 758, in __call__
+backend-1   |     await self.middleware_stack(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 778, in app
+backend-1   |     await route.handle(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 299, in handle
+backend-1   |     await self.app(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 79, in app
+backend-1   |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+backend-1   |     raise exc
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+backend-1   |     await app(scope, receive, sender)
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 74, in app
+backend-1   |     response = await func(request)
+backend-1   |                ^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 299, in app
+backend-1   |     raise e
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 294, in app
+backend-1   |     raw_response = await run_endpoint_function(
+backend-1   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 193, in run_endpoint_function
+backend-1   |     return await run_in_threadpool(dependant.call, **values)
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 42, in run_in_threadpool
+backend-1   |     return await anyio.to_thread.run_sync(func, *args)
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 63, in run_sync
+backend-1   |     return await get_async_backend().run_sync_in_worker_thread(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2502, in run_sync_in_worker_thread
+backend-1   |     return await future
+backend-1   |            ^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 986, in run
+backend-1   |     result = context.run(func, *args)
+backend-1   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/app/app/api/v1/endpoints/newsletters.py", line 16, in read_newsletters
+backend-1   |     newsletters = newsletter_service.get_newsletters(db, skip=skip, limit=limit)
+backend-1   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/app/app/services/newsletter_service.py", line 12, in get_newsletters
+backend-1   |     return db.query(Newsletter).order_by(desc(Newsletter.created_at)).offset(skip).limit(limit).all()
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+backend-1   |     return self._iter().all()  # type: ignore
+backend-1   |            ^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+backend-1   |     result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+backend-1   |                                                   ^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+backend-1   |     return self._execute_internal(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+backend-1   |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+backend-1   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+backend-1   |     result = conn.execute(
+backend-1   |              ^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+backend-1   |     return meth(
+backend-1   |            ^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+backend-1   |     return connection._execute_clauseelement(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+backend-1   |     ret = self._execute_context(
+backend-1   |           ^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+backend-1   |     return self._exec_single_context(
+backend-1   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+backend-1   |     self._handle_dbapi_exception(
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+backend-1   |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+backend-1   |     self.dialect.do_execute(
+backend-1   |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+backend-1   |     cursor.execute(statement, parameters)
+backend-1   | sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "newsletter" does not exist
+backend-1   | LINE 2: FROM newsletter ORDER BY newsletter.created_at DESC 
+backend-1   |              ^
+backend-1   | 
+backend-1   | [SQL: SELECT newsletter.id AS newsletter_id, newsletter.subject AS newsletter_subject, newsletter.content_html AS newsletter_content_html, newsletter.status AS newsletter_status, newsletter.scheduled_at AS newsletter_scheduled_at, newsletter.sent_at AS newsletter_sent_at, newsletter.created_at AS newsletter_created_at, newsletter.updated_at AS newsletter_updated_at 
+backend-1   | FROM newsletter ORDER BY newsletter.created_at DESC 
+backend-1   |  LIMIT %(param_1)s OFFSET %(param_2)s]
+backend-1   | [parameters: {'param_1': 100, 'param_2': 0}]
+backend-1   | (Background on this error at: https://sqlalche.me/e/20/f405)

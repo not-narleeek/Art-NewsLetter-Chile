@@ -16,6 +16,12 @@ def send_email(email_to: str, subject: str, html_content: str) -> None:
     
     try:
         with smtplib.SMTP(**smtp_options) as server:
+            if settings.SMTP_TLS:
+                server.starttls()
+            
+            if settings.SMTP_USER and settings.SMTP_PASSWORD:
+                server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
+                
             server.sendmail(settings.EMAILS_FROM_EMAIL, email_to, message.as_string())
     except Exception as e:
         print(f"Failed to send email: {e}") 

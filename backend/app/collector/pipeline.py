@@ -4,13 +4,35 @@ from app.schemas.event import EventCreate
 from app.services import event_service
 from app.collector.scrapers.chile_cultura import ChileCulturaScraper
 from app.collector.scrapers.instagram import InstagramScraper
+from app.collector.scrapers.mnba import MNBAScraper
+from app.collector.scrapers.museums import GAMScraper, PrecolombinoScraper, MuseoMemoriaScraper
+from app.collector.scrapers.galleries import AninatScraper, PatriciaReadyScraper, NACScraper
+from app.collector.scrapers.theaters import MunicipalScraper, CEACScraper, SCDScraper, BiobioScraper
+from app.collector.scrapers.agendas import SantiagoCulturaScraper, CulturizarteScraper
+from app.collector.scrapers.foundations import TeatroAMilScraper, CorpArtesScraper, BAJScraper
 
 class CollectorPipeline:
     def __init__(self, db: Session):
         self.db = db
         self.scrapers = [
-            ChileCulturaScraper(),
-            InstagramScraper()
+            # ChileCulturaScraper(), # Mock scraper disabled
+            MNBAScraper(),
+            GAMScraper(),
+            PrecolombinoScraper(),
+            MuseoMemoriaScraper(),
+            AninatScraper(),
+            PatriciaReadyScraper(),
+            NACScraper(),
+            MunicipalScraper(),
+            CEACScraper(),
+            SCDScraper(),
+            BiobioScraper(),
+            SantiagoCulturaScraper(),
+            CulturizarteScraper(),
+            TeatroAMilScraper(),
+            CorpArtesScraper(),
+            BAJScraper(),
+            # InstagramScraper()
         ]
         
     async def run(self) -> dict:

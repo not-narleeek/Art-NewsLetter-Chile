@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.db.session import get_db
@@ -5,6 +6,31 @@ from app.schemas.subscriber import SubscriberCreate, Subscriber
 from app.services import subscriber_service
 
 router = APIRouter()
+
+@router.delete("/{subscriber_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_subscriber(
+    subscriber_id: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Delete a subscriber.
+    """
+    subscriber = subscriber_service.delete_subscriber(db, subscriber_id=subscriber_id)
+    if not subscriber:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    return None
+
+@router.get("/", response_model=List[Subscriber])
+def read_subscribers(
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db)
+):
+    """
+    Retrieve subscribers.
+    """
+    subscribers = subscriber_service.get_all(db, skip=skip, limit=limit)
+    return subscribers
 
 @router.post("/", response_model=Subscriber, status_code=status.HTTP_201_CREATED)
 def create_subscriber(

@@ -11,6 +11,9 @@ def get_by_email(db: Session, email: str) -> Subscriber | None:
 def get_by_token(db: Session, token: str) -> Subscriber | None:
     return db.query(Subscriber).filter(Subscriber.confirmation_token == token).first()
 
+def get_all(db: Session, skip: int = 0, limit: int = 100) -> list[Subscriber]:
+    return db.query(Subscriber).offset(skip).limit(limit).all()
+
 def create_subscriber(db: Session, subscriber_in: SubscriberCreate) -> Subscriber:
     # Check if exists
     existing = get_by_email(db, subscriber_in.email)
@@ -61,4 +64,11 @@ def confirm_subscription(db: Session, token: str) -> Subscriber | None:
     db.add(subscriber)
     db.commit()
     db.refresh(subscriber)
+    return subscriber
+
+def delete_subscriber(db: Session, subscriber_id: uuid.UUID) -> Subscriber | None:
+    subscriber = db.query(Subscriber).filter(Subscriber.id == subscriber_id).first()
+    if subscriber:
+        db.delete(subscriber)
+        db.commit()
     return subscriber
