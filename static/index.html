@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Cultural Chile | Eventos de Arte, Música, Teatro y más</title>
+    <meta name="description"
+        content="Recibe mensualmente los mejores eventos culturales de Chile en tu correo. Arte, música, teatro, literatura y cine.">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <header class="hero">
+        <div class="container">
+            <h1>Newsletter Cultural Chile</h1>
+            <p class="tagline">Descubre los mejores eventos culturales de Chile</p>
+
+            <div class="subscription-box">
+                <h2>Suscríbete gratis</h2>
+                <p>Recibe mensualmente una selección curada de eventos de arte, música, teatro, literatura y cine</p>
+
+                <form id="subscribeForm">
+                    <input type="email" id="email" placeholder="tu@email.com" required>
+                    <button type="submit">Suscribirse</button>
+                </form>
+
+                <div id="message" class="message"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <h2>¿Qué incluye?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="icon">🎨</div>
+                    <h3>Arte</h3>
+                    <p>Exposiciones, galerías y eventos artísticos</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🎵</div>
+                    <h3>Música</h3>
+                    <p>Conciertos, festivales y presentaciones</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🎭</div>
+                    <h3>Teatro</h3>
+                    <p>Obras, performances y espectáculos</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">📚</div>
+                    <h3>Literatura</h3>
+                    <p>Lanzamientos, ferias y lecturas</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🎬</div>
+                    <h3>Cine</h3>
+                    <p>Estrenos, festivales y ciclos</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">📍</div>
+                    <h3>Todo Chile</h3>
+                    <p>Eventos de Santiago, Valparaíso, Concepción y más</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2>Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <h3>¿Es gratuito?</h3>
+                <p>Sí, completamente gratuito. Sin costo oculto.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>¿Con qué frecuencia recibiré el newsletter?</h3>
+                <p>Una vez al mes, con los mejores eventos del mes siguiente.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>¿Cómo cancelo mi suscripción?</h3>
+                <p>Cada email incluye un enlace para cancelar la suscripción en cualquier momento.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>¿Quién está detrás de esto?</h3>
+                <p>Un proyecto personal para compartir la cultura chilena con la comunidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Newsletter Cultural Chile</p>
+            <p><a href="/static/admin.html">Admin</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const messageDiv = document.getElementById('message');
+
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                messageDiv.className = 'message success';
+                messageDiv.textContent = data.message;
+
+                if (data.status === 'pending_confirmation') {
+                    document.getElementById('email').value = '';
+                }
+            } catch (error) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = 'Error al suscribirse. Por favor intenta nuevamente.';
+            }
+        });
+    </script>
+</body>
+
+</html>

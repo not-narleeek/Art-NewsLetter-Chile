@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Newsletter Cultural Chile</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>Newsletter Cultural Chile - Admin</h1>
+            <a href="/static/index.html" class="btn-secondary">Ver sitio público</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Dashboard Stats -->
+        <section class="dashboard">
+            <h2>Dashboard</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSubscribers">-</div>
+                    <div class="stat-label">Total Suscriptores</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeSubscribers">-</div>
+                    <div class="stat-label">Suscriptores Activos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalEvents">-</div>
+                    <div class="stat-label">Eventos Publicados</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Actions -->
+        <section class="newsletter-section">
+            <h2>Newsletter</h2>
+            <div class="actions">
+                <button onclick="previewNewsletter()" class="btn-primary">Vista Previa</button>
+                <button onclick="sendNewsletter()" class="btn-success">Enviar Newsletter</button>
+            </div>
+            <div id="newsletterPreview" class="preview-box" style="display:none;"></div>
+        </section>
+
+        <!-- Event Management -->
+        <section class="events-section">
+            <h2>Gestión de Eventos</h2>
+
+            <!-- Add Event Form -->
+            <div class="form-card">
+                <h3>Agregar Nuevo Evento</h3>
+                <form id="eventForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Título *</label>
+                            <input type="text" id="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Categoría *</label>
+                            <select id="category" required>
+                                <option value="arte">Arte</option>
+                                <option value="musica">Música</option>
+                                <option value="teatro">Teatro</option>
+                                <option value="literatura">Literatura</option>
+                                <option value="cine">Cine</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea id="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha Inicio *</label>
+                            <input type="datetime-local" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha Fin</label>
+                            <input type="datetime-local" id="endDate">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Región</label>
+                            <input type="text" id="region" placeholder="Santiago, Valparaíso, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Lugar</label>
+                            <input type="text" id="venue" placeholder="GAM, Teatro Municipal, etc.">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL del Evento</label>
+                        <input type="url" id="url" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL de Imagen</label>
+                        <input type="url" id="imageUrl" placeholder="https://...">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Crear Evento</button>
+                </form>
+            </div>
+
+            <!-- Events List -->
+            <div class="events-list">
+                <h3>Eventos Recientes</h3>
+                <div id="eventsList"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+
+</html>
